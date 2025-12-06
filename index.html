@@ -396,7 +396,7 @@
               <option value="Gestresst 😵">Gestresst 😵</option>
               <option value="Durchgefroren 🥶">Durchgefroren 🥶</option>
               <option value="Abenteuer pur 🤩">Abenteuer pur 🤩</option>
-	      <option value="Gelangweilt">Gelangweilt </option>
+              <option value="Gelangweilt">Gelangweilt</option>
             </select>
             <div class="helper-text">Optional – hilft beim Erinnern der Stimmung.</div>
           </div>
@@ -425,7 +425,7 @@
             </button>
           </div>
           <p class="helper-text">
-            💡 Deine Einträge werden im Browser gespeichert (localStorage) – sie bleiben auf diesem Gerät erhalten.
+            💡 Deine Einträge werden über unseren Klassen-GitHub-Server synchronisiert und sind auf mehreren Geräten sichtbar.
           </p>
         </form>
       </section>
@@ -439,7 +439,7 @@
 
         <div class="pill-group" style="margin-bottom: 0.4rem;">
           <span class="pill">Neueste Einträge zuerst</span>
-          <span class="pill">Nur auf diesem Gerät gespeichert</span>
+          <span class="pill">Über GitHub synchronisiert</span>
         </div>
 
         <div id="entriesContainer">
@@ -455,7 +455,7 @@
     </div>
 
     <footer>
-      Klassenfahrt-Tagebuch – erstellt mit 💙 im Browser · Daten bleiben auf deinem Gerät
+      Klassenfahrt-Tagebuch – erstellt mit 💙 · Daten werden über GitHub synchronisiert
     </footer>
   </div>
 
@@ -463,8 +463,9 @@
   <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
 
   <script>
-    (function () {
-      const STORAGE_KEY = "klassenfahrtDiaryEntries";
+    (async function () {
+      // URL der Netlify Function, die mit GitHub spricht
+      const API_URL = "/.netlify/functions/entries";
 
       const entryForm = document.getElementById("entryForm");
       const dateInput = document.getElementById("date");
@@ -495,18 +496,46 @@
         return `${year}-${month}-${day}`;
       }
 
-      function loadEntries() {
+      // Einträge von der Netlify Function / GitHub laden
+      async function loadEntries() {
         try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          entries = raw ? JSON.parse(raw) : [];
+          const res = await fetch(API_URL, {
+            method: "GET"
+          });
+
+          if (!res.ok) {
+            console.error("Fehler beim Laden aus API:", res.status, await res.text());
+            entries = [];
+            return;
+          }
+
+          const data = await res.json();
+          entries = Array.isArray(data) ? data : [];
         } catch (e) {
-          console.error("Fehler beim Laden:", e);
+          console.error("Netzwerkfehler beim Laden:", e);
           entries = [];
         }
       }
 
-      function saveEntries() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+      // Einträge zur Netlify Function schicken (die in GitHub schreibt)
+      async function saveEntries() {
+        try {
+          const res = await fetch(API_URL, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(entries)
+          });
+
+          if (!res.ok) {
+            console.error("Fehler beim Speichern in API:", res.status, await res.text());
+            alert("Speichern auf dem GitHub-Server ist fehlgeschlagen. Versuche es später noch einmal.");
+          }
+        } catch (e) {
+          console.error("Netzwerkfehler beim Speichern:", e);
+          alert("Keine Verbindung zum GitHub-Server. Die Einträge konnten nicht synchronisiert werden.");
+        }
       }
 
       function formatDateForDisplay(dateStr) {
@@ -633,10 +662,10 @@
           deleteBtn.type = "button";
           deleteBtn.className = "btn btn-danger btn-small";
           deleteBtn.textContent = "Löschen";
-          deleteBtn.addEventListener("click", () => {
+          deleteBtn.addEventListener("click", async () => {
             if (confirm("Diesen Eintrag wirklich löschen?")) {
               entries = entries.filter(e => e.id !== entry.id);
-              saveEntries();
+              await saveEntries();
               renderEntries();
             }
           });
@@ -735,7 +764,7 @@
         reader.readAsDataURL(file);
       });
 
-      entryForm.addEventListener("submit", (event) => {
+      entryForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
         const date = dateInput.value;
@@ -762,7 +791,7 @@
         };
 
         entries.push(newEntry);
-        saveEntries();
+        await saveEntries();
         renderEntries();
         resetForm();
       });
@@ -771,18 +800,18 @@
         resetForm();
       });
 
-      deleteAllBtn.addEventListener("click", () => {
+      deleteAllBtn.addEventListener("click", async () => {
         if (!entries.length) return;
         const really = confirm("Wirklich alle Einträge löschen? Dies kann nicht rückgängig gemacht werden.");
         if (!really) return;
         entries = [];
-        saveEntries();
+        await saveEntries();
         renderEntries();
       });
 
       // Initial
       dateInput.value = todayAsInputValue();
-      loadEntries();
+      await loadEntries();
       renderEntries();
     })();
   </script>
