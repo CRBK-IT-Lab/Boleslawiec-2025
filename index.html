@@ -1,819 +1,355 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <title>Online-Tagebuch – Boleslawiec 2025</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Erasmus – Bolesławiec & CRBK Hennef</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    :root {
-      --primary: #C23B33;        /* Haupt-Schulfarbe */
-      --primary-light: #D35B51;  /* Helle Schulfarbe */
-      --bg: #f7f3f3;
-      --card-bg: #ffffff;
-      --border: #e5e7eb;
-      --text-main: #111827;
-      --text-muted: #6b7280;
-      --danger: #b91c1c;
-    }
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+.logo-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-    * {
-      box-sizing: border-box;
-    }
+.nav-logo {
+    height: 38px;
+    width: auto;
+    border-radius: 5px;
+}
 
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #F2D2D0 0, #f7f3f3 45%, #eee 100%);
-      color: var(--text-main);
-    }
+<style>
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: #fff5f5;
+    color: #333;
+    scroll-behavior: smooth;
+}
+a { text-decoration: none; }
 
-    .page {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 1.5rem;
-    }
+nav {
+    background: #ffffffcc;
+    backdrop-filter: blur(10px);
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    z-index: 100;
+}
+nav h1 { color: #d63333; font-size: 1.5rem; font-weight: 600; }
+nav a {
+    margin-left: 25px;
+    color: #d63333;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+nav a:hover { color: #a10000; }
 
-    header {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
+.hero {
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(to right, #ffb3b3, #ffdfdf);
+    position: relative;
+}
+.hero h2 {
+    font-size: 3rem;
+    margin: 0 0 15px;
+    color: #a10000;
+}
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    color: #1c1c1cdd;
+}
+.hero button {
+    padding: 15px 40px;
+    background: #d63333;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.hero button:hover {
+    background: #a10000;
+    transform: translateY(-3px);
+}
 
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-      letter-spacing: 0.03em;
-      color: var(--primary);
-    }
+section { padding: 80px 10%; }
+h2.section-title {
+    text-align: center;
+    font-size: 2.4rem;
+    margin-bottom: 50px;
+    color: #a10000;
+}
 
-    header p {
-      margin: 0.25rem 0 0;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
+.card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    margin-bottom: 60px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+.card img {
+    width: 100%;
+    border-radius: 15px;
+    margin-top: 20px;
+}
 
-    .tagline {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      margin-top: 0.8rem;
-      padding: 0.35rem 0.8rem;
-      border-radius: 999px;
-      background: rgba(194, 59, 51, 0.08);
-      color: var(--primary);
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
+.slider {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 30px;
+    border-radius: 15px;
+}
+.slider-track {
+    display: flex;
+    animation: slide 20s linear infinite;
+}
+.slider-track img {
+    width: 500px;
+    height: 320px;
+    object-fit: cover;
+    margin-right: 20px;
+    border-radius: 15px;
+}
+@keyframes slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-300%); }
+}
 
-    .card {
-      background: var(--card-bg);
-      border-radius: 1rem;
-      padding: 1.2rem 1.4rem;
-      box-shadow:
-        0 12px 30px rgba(15,23,42,0.12),
-        0 0 0 1px rgba(148,163,184,0.25);
-      border: 1px solid rgba(148,163,184,0.4);
-    }
+.timeline {
+    max-width: 900px;
+    margin: auto;
+    border-left: 4px solid #ffb3b3;
+    padding-left: 30px;
+}
+.timeline-item {
+    margin-bottom: 40px;
+}
+.timeline-item h3 {
+    margin: 0;
+    color: #d63333;
+    font-size: 1.4rem;
+}
+.timeline-item p { margin-top: 5px; line-height: 1.6; }
 
-    .card + .card {
-      margin-top: 1rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
-      gap: 1.5rem;
-    }
-
-    @media (max-width: 800px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    h2 {
-      margin: 0 0 1rem;
-      font-size: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    h2 span.icon {
-      font-size: 1.2rem;
-    }
-
-    /* Formular */
-    .form-row {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.75rem;
-    }
-
-    .form-group {
-      margin-bottom: 0.75rem;
-    }
-
-    label {
-      display: block;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 0.25rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    input, select, textarea {
-      width: 100%;
-      border-radius: 0.7rem;
-      border: 1px solid var(--border);
-      padding: 0.5rem 0.75rem;
-      font: inherit;
-      background: #f9fafb;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(194,59,51,0.18);
-      background: #ffffff;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 130px;
-    }
-
-    .helper-text {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 0.2rem;
-    }
-
-    .btn {
-      border: none;
-      border-radius: 999px;
-      padding: 0.55rem 1.1rem;
-      font: inherit;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-      background: var(--primary);
-      color: #fef2f2;
-      box-shadow: 0 8px 18px rgba(194,59,51,0.3);
-    }
-
-    .btn:hover {
-      background: var(--primary-light);
-      box-shadow: 0 12px 26px rgba(194,59,51,0.35);
-      transform: translateY(-1px);
-    }
-
-    .btn:active {
-      transform: translateY(0);
-      box-shadow: 0 4px 10px rgba(194,59,51,0.25);
-    }
-
-    .btn-secondary {
-      background: #e5e7eb;
-      color: #111827;
-      box-shadow: none;
-    }
-
-    .btn-secondary:hover {
-      background: #d1d5db;
-      box-shadow: none;
-    }
-
-    .btn-small {
-      padding: 0.25rem 0.7rem;
-      font-size: 0.75rem;
-      border-radius: 999px;
-    }
-
-    .btn-danger {
-      background: rgba(185,28,28,0.1);
-      color: var(--danger);
-      box-shadow: none;
-    }
-
-    .btn-danger:hover {
-      background: rgba(185,28,28,0.18);
-    }
-
-    .actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 0.4rem;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      border-radius: 999px;
-      padding: 0.1rem 0.6rem;
-      font-size: 0.7rem;
-      font-weight: 500;
-    }
-
-    .badge-location {
-      background: rgba(194,59,51,0.15);
-      color: #7a1f19;
-    }
-
-    .badge-mood {
-      background: rgba(211,91,81,0.18);
-      color: #8b2f28;
-    }
-
-    .badge-date {
-      background: rgba(15,23,42,0.06);
-      color: #0f172a;
-    }
-
-    .entries-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 0.7rem;
-    }
-
-    .entries-header small {
-      color: var(--text-muted);
-      font-size: 0.8rem;
-    }
-
-    .entry {
-      border-radius: 0.9rem;
-      border: 1px solid rgba(148,163,184,0.5);
-      padding: 0.8rem 0.9rem;
-      margin-bottom: 0.6rem;
-      background: rgba(248,250,252,0.9);
-    }
-
-    .entry-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 0.5rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .entry-title {
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .entry-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.3rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .entry-text {
-      font-size: 0.9rem;
-      line-height: 1.4;
-      white-space: pre-wrap;
-      margin-bottom: 0.4rem;
-    }
-
-    .no-entries {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      font-style: italic;
-    }
-
-    .pill-group {
-      display: inline-flex;
-      flex-wrap: wrap;
-      gap: 0.3rem;
-    }
-
-    .pill {
-      padding: 0.2rem 0.55rem;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      background: rgba(148,163,184,0.15);
-      color: #374151;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 1.5rem;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-    }
-
-    /* Bild & Karte */
-    .entry-image {
-      max-width: 100%;
-      border-radius: 0.6rem;
-      display: block;
-      margin-bottom: 0.4rem;
-      border: 1px solid rgba(148,163,184,0.5);
-    }
-
-    .image-preview {
-      max-width: 100%;
-      max-height: 160px;
-      display: none;
-      margin-top: 0.4rem;
-      border-radius: 0.6rem;
-      border: 1px solid rgba(148,163,184,0.5);
-      object-fit: cover;
-    }
-
-    .map-container {
-      margin-top: 0.4rem;
-      border-radius: 0.6rem;
-      overflow: hidden;
-      border: 1px solid rgba(148,163,184,0.5);
-    }
-
-    .map-container iframe {
-      width: 100%;
-      height: 200px;
-      border: 0;
-    }
-
-    .map-link {
-      font-size: 0.8rem;
-      margin-top: 0.25rem;
-      display: inline-block;
-    }
-  </style>
+footer {
+    background: #a10000;
+    color: #fff;
+    padding: 40px;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 0.95rem;
+}
+footer a { color: #ffd6d6; }
+</style>
 </head>
+
 <body>
-  <div class="page">
-    <header>
-      <h1>Online-Tagebuch – Boleslawiec 2025</h1>
-      <p>Halte deine Erlebnisse, Bilder und Orte der Fahrt fest.</p>
-      <div class="tagline">
-        ✏️ <span>Text, Foto & Ort – alles in einem Eintrag</span>
-      </div>
-    </header>
 
-    <div class="grid">
-      <!-- Formular-Card -->
-      <section class="card">
-        <h2><span class="icon">📌</span> Neuer Eintrag</h2>
+<nav>
 
-        <form id="entryForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="date">Datum</label>
-              <input type="date" id="date" required>
-            </div>
-            <div class="form-group">
-              <label for="place">Ort / Station</label>
-              <input type="text" id="place" placeholder="z. B. Hotel" />
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="title">Überschrift</label>
-            <input type="text" id="title" placeholder="z. B. Erster Tag – Anreise & Chaos" required>
-          </div>
-
-          <div class="form-group">
-            <label for="mood">Stimmung</label>
-            <select id="mood">
-              <option value="">– auswählen (optional) –</option>
-              <option value="Mega gut 😄">Mega gut 😄</option>
-              <option value="Gut 🙂">Gut 🙂</option>
-              <option value="Müde 😴">Müde 😴</option>
-              <option value="Gestresst 😵">Gestresst 😵</option>
-              <option value="Durchgefroren 🥶">Durchgefroren 🥶</option>
-              <option value="Abenteuer pur 🤩">Abenteuer pur 🤩</option>
-              <option value="Gelangweilt">Gelangweilt</option>
-            </select>
-            <div class="helper-text">Optional – hilft beim Erinnern der Stimmung.</div>
-          </div>
-
-          <div class="form-group">
-            <label for="text">Was ist heute passiert?</label>
-            <textarea id="text" placeholder="Highlights, Pannen, Insider-Sprüche, Ausflüge …" required></textarea>
-          </div>
-
-          <div class="form-group">
-            <label for="photo">Foto hinzufügen (mit Geodaten möglich)</label>
-            <input type="file" id="photo" accept="image/*">
-            <div class="helper-text">
-              Wenn das Foto GPS-Daten enthält, wird automatisch eine Karte mit dem Ort angezeigt.
-            </div>
-            <img id="photoPreview" class="image-preview" alt="Vorschau Bild">
-            <div id="gpsInfo" class="helper-text"></div>
-          </div>
-
-          <div class="actions">
-            <button type="submit" class="btn">
-              💾 Eintrag speichern
-            </button>
-            <button type="button" class="btn btn-secondary btn-small" id="clearFormBtn">
-              Formular leeren
-            </button>
-          </div>
-          <p class="helper-text">
-            💡 Deine Einträge werden über unseren Klassen-GitHub-Server synchronisiert und sind auf mehreren Geräten sichtbar.
-          </p>
-        </form>
-      </section>
-
-      <!-- Einträge-Card -->
-      <section class="card">
-        <div class="entries-header">
-          <h2><span class="icon">📖</span> Meine Einträge</h2>
-          <small id="entryCountLabel">Keine Einträge vorhanden</small>
-        </div>
-
-        <div class="pill-group" style="margin-bottom: 0.4rem;">
-          <span class="pill">Neueste Einträge zuerst</span>
-          <span class="pill">Über GitHub synchronisiert</span>
-        </div>
-
-        <div id="entriesContainer">
-          <p class="no-entries">Noch keine Einträge. Starte mit deinem ersten Tag der Klassenfahrt! ✨</p>
-        </div>
-
-        <div class="actions" style="margin-top: 0.8rem;">
-          <button type="button" class="btn-danger btn-small" id="deleteAllBtn">
-            🗑️ Alle Einträge löschen
-          </button>
-        </div>
-      </section>
+    <div class="logo-group">
+        <img src="Erasmus.png" alt="Logo" class="nav-logo">
+        <h1>Austausch Hennef - Boleslawiec</h1>
     </div>
 
-    <footer>
-      Klassenfahrt-Tagebuch – erstellt mit 💙 · Daten werden über GitHub synchronisiert
-    </footer>
-  </div>
+    <div>
+        <a href="#boleslawiec">Bolesławiec</a>
+        <a href="#crbk">CRBK</a>
+        <a href="#erasmus">Erasmus</a>
+        <a href="#timeline">Programm</a>
+    </div>
+</nav>
 
-  <!-- EXIF-Bibliothek für GPS aus Bildern -->
-  <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
 
-  <script>
-    (async function () {
-      // URL der Netlify Function, die mit GitHub spricht
-      const API_URL = "/.netlify/functions/entries";
+<div class="hero">
+    <div>
+        <h2>Erasmus verbindet Europa</h2>
+        <p>Erlebe Kultur, Freundschaft und spannende Erfahrungen zwischen Hennef und Bolesławiec.</p>
+        <button onclick="document.getElementById('boleslawiec').scrollIntoView({behavior:'smooth'})">
+            Jetzt entdecken
+        </button>
+    </div>
+</div>
 
-      const entryForm = document.getElementById("entryForm");
-      const dateInput = document.getElementById("date");
-      const placeInput = document.getElementById("place");
-      const titleInput = document.getElementById("title");
-      const moodInput = document.getElementById("mood");
-      const textInput = document.getElementById("text");
-      const photoInput = document.getElementById("photo");
-      const photoPreview = document.getElementById("photoPreview");
-      const gpsInfo = document.getElementById("gpsInfo");
+<!-- BOLESLAWIEC -->
+<section id="boleslawiec">
+    <h2 class="section-title">🇵🇱 Bolesławiec – Stadt der Keramik</h2>
+    <div class="card">
+        <p>Bolesławiec ist eine historische Stadt im Südwesten Polens, bekannt für ihre jahrhundertealte Tradition der Keramikherstellung. Die berühmte „Bunzlauer Keramik“ ist weltweit begehrt und zeichnet sich durch ihre unverwechselbaren blauen Muster aus. Neben der Keramik bietet die Stadt eine charmante Altstadt mit bunten Häusern, gemütlichen Cafés und historischen Denkmälern.</p>
+        <p>Die Stadt bietet auch zahlreiche kulturelle Aktivitäten: Theateraufführungen, traditionelle Feste, Musikveranstaltungen und Workshops, in denen Besucher selbst Keramik gestalten können. Parks, Flussufer und Radwege laden zu Outdoor-Aktivitäten ein. Wer Bolesławiec besucht, erlebt eine einzigartige Mischung aus Tradition, Kunst und lebendigem Stadtleben.</p>
+        <img src="Boleslawiec.png" style="width:30px; height:30px; object-fit:cover;">
+        <div class="slider">
+            <div class="slider-track">
+                <img src="Boleslawiec (1).jfif">
+                <img src="Boleslawiec (2).jfif">
+                <img src="Boleslawiec (3).jfif">
+                <img src="Boleslawiec (4).jfif">
+                <img src="Boleslawiec (5).jfif">
+                <img src="Boleslawiec (6).jfif">
+		<img src="Boleslawiec (7).jfif">
+                <img src="Boleslawiec (8).jfif">
+                <img src="Boleslawiec (9).jfif">
+            </div>
+        </div>
+    </div>
+</section>
 
-      const entriesContainer = document.getElementById("entriesContainer");
-      const entryCountLabel = document.getElementById("entryCountLabel");
-      const clearFormBtn = document.getElementById("clearFormBtn");
-      const deleteAllBtn = document.getElementById("deleteAllBtn");
+<!-- CRBK -->
+<section id="crbk">
+    <h2 class="section-title">🏫 Carl-Reuther-Berufskolleg Hennef</h2>
+    <div class="card">
+        <p>Das Carl-Reuther-Berufskolleg in Hennef ist eine moderne berufsbildende Schule, die ein breites Spektrum an Ausbildungsgängen bietet: Technik, Wirtschaft, Informatik, Sozialwesen und Pflege. Die Schule legt großen Wert auf praxisnahe Ausbildung, Teamarbeit und innovative Lernmethoden.</p>
+        <p>CRBK unterstützt aktiv internationale Projekte wie Erasmus, um Schülerinnen und Schülern Einblicke in die berufliche Praxis in Europa zu ermöglichen. Regelmäßig finden Austausche, Praktika im Ausland, Projektwochen und Sprachtrainings statt. Die Schule fördert somit nicht nur fachliche Kompetenzen, sondern auch interkulturelle Fähigkeiten, Selbstständigkeit und Teamgeist.</p>
+        <p>Die moderne Ausstattung, engagierte Lehrkräfte und die enge Zusammenarbeit mit Betrieben in Deutschland und Europa machen das CRBK zu einem idealen Ort für zukunftsorientierte Bildung. Schülerinnen und Schüler profitieren von Workshops, Exkursionen und Projekten, die Europa erlebbar machen.</p>
+        <img src="CRBK.png" style="width:30px; height:30px; object-fit:cover;">
 
-      let entries = [];
+    </div>
+</section>
 
-      // Variablen für das aktuell ausgewählte Foto
-      let currentImageDataUrl = null;
-      let currentImageGps = null; // {lat, lng}
+<!-- ERASMUS -->
+<section id="erasmus">
+    <h2 class="section-title">🌍 Erasmus – Erfahrungen fürs Leben</h2>
+    <div class="card">
+        <p>Das Erasmus-Programm ist eine Initiative der Europäischen Union, die junge Menschen zu Austausch und Bildung in anderen Ländern motiviert. Schülerinnen und Schüler, Auszubildende und Studierende erhalten die Chance, neue Länder, Kulturen und Sprachen kennenzulernen. Erasmus fördert interkulturelle Kompetenz, Selbstbewusstsein und persönliche Weiterentwicklung.</p>
+        <p>Teilnehmende profitieren von internationalen Praktika, Projektarbeit, Sprachtrainings und kulturellen Aktivitäten. Sie sammeln Erfahrungen, die im späteren Berufsleben von großem Wert sind, und knüpfen internationale Freundschaften. Erasmus stärkt auch die sozialen Fähigkeiten: Teamarbeit, Problemlösung, Anpassungsfähigkeit und Verantwortungsbewusstsein werden aktiv gefördert.</p>
+        <p>Die Teilnahme an Erasmus ist mehr als ein Auslandsaufenthalt: Es ist ein unvergessliches Erlebnis, das Horizonte erweitert, Perspektiven verändert und lebenslange Erinnerungen schafft.</p>
+        <img src="erasmus.png">
+    </div>
+</section>
 
-      function todayAsInputValue() {
-        const d = new Date();
-        const year = d.getFullYear();
-        const month = String(d.getMonth() + 1).padStart(2, "0");
-        const day = String(d.getDate()).padStart(2, "0");
-        return `${year}-${month}-${day}`;
-      }
+<section id="timeline">
+    <h2 class="section-title">📅 Programm</h2>
+    <div class="timeline">
+        <div class="timeline-item">
+            <h3>1.Tag - Anreise</h3>
+            <p>Anreise mit dem VIP Bus. Nach dem CheckIn im Hotel ging es zum ersten typisch polnischem Abendessen.</p>
+		<img src="Anreise (0).jfif" style="width:320px; height:240px; object-fit:cover;"> 
+		<img src="Anreise (1).jfif" style="width:320px; height:240px; object-fit:cover;">
+		<img src="Anreise (3).jfif" style="width:320px; height:240px; object-fit:cover;">
+		<img src="Anreise (5).jfif" style="width:320px; height:240px; object-fit:cover;">
+		
+        </div>
+        <div class="timeline-item">
+            <h3>2.Tag - Besuch in Breslau</h3>
+            <p>Die wunderschöne Studentenstadt Breslau erwartete uns leider mit Nebel. Schön war es dennoch.</p>
+		<div class="slider">
+            		<div class="slider-track">
+               			 <img src="Breslau (1).jfif">
+               			 <img src="Breslau (2).jfif">
+               			 <img src="Breslau (3).jfif">
+               			 <img src="Breslau (4).jfif">
+               			 <img src="Breslau (5).jfif">
+               			 <img src="Breslau (6).jfif">
+               			 <img src="Breslau (7).jfif">
+               			 <img src="Breslau (8).jfif">
+               			 <img src="Breslau (9).jfif">
+               			 <img src="Breslau (10).jfif">
+               			 <img src="Breslau (11).jfif">
+               			 <img src="Breslau (12).jfif">
+               			 <img src="Breslau (13).jfif">
+               			 <img src="Breslau (14).jfif">
+               			 <img src="Breslau (15).jfif">
+               			 <img src="Breslau (16).jfif">
+               			 <img src="Breslau (17).jfif">
+               			 <img src="Breslau (18).jfif">
+               		</div>
+       		 </div>
 
-      // Einträge von der Netlify Function / GitHub laden
-      async function loadEntries() {
-        try {
-          const res = await fetch(API_URL, {
-            method: "GET"
-          });
+        </div>
+        <div class="timeline-item">
+            <h3>3.Tag - 1. Schultag</h3>
+            <p>Es wurde gemeinsam gepatcht und gecrimpt. Am Nachmittag ging es zum gemeinsamen Pierogi-Essen.</p>
+		<img src="Tag 1.jfif" style="width:640px; height:480px; object-fit:cover;">
+        </div>
+        <div class="timeline-item">
+            <h3>4.Tag - 2. Schultag</h3>
+            <p>Router und managebare Switche wollten konfiguriert werden. Als Belohnung ging es Abends auf die Bowlingbahn.</p>
+		<div class="slider">
+            		<div class="slider-track">
+		<img src="Tag2 (7).jfif"> 
+		<img src="Tag2 (1).jfif">
+		<img src="Tag2 (2).jfif">
+		<img src="Tag2 (3).jfif">
+		<img src="Tag2 (4).jfif">
+		<img src="Tag2 (5).jfif">
+		<img src="Tag2 (6).jfif">
+			</div>
+		</div>
 
-          if (!res.ok) {
-            console.error("Fehler beim Laden aus API:", res.status, await res.text());
-            entries = [];
-            return;
-          }
 
-          const data = await res.json();
-          entries = Array.isArray(data) ? data : [];
-        } catch (e) {
-          console.error("Netzwerkfehler beim Laden:", e);
-          entries = [];
-        }
-      }
+        </div>
+        <div class="timeline-item">
+            <h3>5.Tag - 3. Schultag</h3>
+            <p>Wir installierten Linux auf den Rechnern. Nachmittags bemalten wir unsere eigenen Keramiken. Gespannt warten wir auf die gebrannten Ergebnisse.</p>
+		<img src="Tag3 (2).jfif" style="width:320px; height:240px; object-fit:cover;"> 
+		<img src="Tag3 (1).jfif" style="width:320px; height:240px; object-fit:cover;">	
+        </div>
 
-      // Einträge zur Netlify Function schicken (die in GitHub schreibt)
-      async function saveEntries() {
-        try {
-          const res = await fetch(API_URL, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify(entries)
-          });
+        <div class="timeline-item">
+            <h3>6.Tag - 4. Schultag</h3>
+            <p>Konfiguration von FTP-Diensten unter Linux. Am Nachmittag besuchten wir das neue Keramikmuseum.</p>
+		<div class="slider">
+            		<div class="slider-track">
+               			 <img src="Tag4 (1).jfif">
+               			 <img src="Tag4 (2).jfif">
+               			 <img src="Tag4 (3).jfif">
+               			 <img src="Tag4 (4).jfif">
+               			 <img src="Tag4 (5).jfif">
+               			 <img src="Tag4 (6).jfif">
+               			 <img src="Tag4 (7).jfif">
+               			 <img src="Tag4 (8).jfif">
+               			 <img src="Tag4 (9).jfif">
+               			 <img src="Tag4 (10).jfif">
+               			 <img src="Tag4 (11).jfif">
+               			 <img src="Tag4 (12).jfif">
+               			 <img src="Tag4 (13).jfif">
+               			 <img src="Tag4 (14).jfif">
+               			 <img src="Tag4 (15).jfif">
+               			 <img src="Tag4 (16).jfif">
+               			 <img src="Tag4 (17).jfif">
+               			 <img src="Tag4 (18).jfif">
+               		</div>
+       		 </div>
 
-          if (!res.ok) {
-            console.error("Fehler beim Speichern in API:", res.status, await res.text());
-            alert("Speichern auf dem GitHub-Server ist fehlgeschlagen. Versuche es später noch einmal.");
-          }
-        } catch (e) {
-          console.error("Netzwerkfehler beim Speichern:", e);
-          alert("Keine Verbindung zum GitHub-Server. Die Einträge konnten nicht synchronisiert werden.");
-        }
-      }
+        </div>
 
-      function formatDateForDisplay(dateStr) {
-        if (!dateStr) return "Ohne Datum";
-        const d = new Date(dateStr);
-        if (Number.isNaN(d.getTime())) return dateStr;
-        const options = { day: "2-digit", month: "2-digit", year: "numeric" };
-        return d.toLocaleDateString("de-DE", options);
-      }
+	<div class="timeline-item">
+            <h3>7.Tag - 5. Schultag</h3>
+            <p>Erstellen einer Projektwebsite mit anschließender Präsentation. Danach Verabschiedung und Gruppenfoto.</p>
+		<img src="Tag5.jpg" style="width:320px; height:240px; object-fit:cover;"> 
+		<img src="Gruppenfoto.png" style="width:320px; height:240px; object-fit:cover;">	
+        </div>
 
-      function renderEntries() {
-        entriesContainer.innerHTML = "";
+	<div class="timeline-item">
+            <h3>8.Tag Abreise</h3>
+            <p>Wir waren alle so müde, dass keiner mehr Fotos machen konnte. Vielen Dank an das Erasmus+ Team des CRBK, die uns diese tolle Fahrt ermöglichten.</p>
+        </div>
 
-        if (!entries.length) {
-          entriesContainer.innerHTML =
-            '<p class="no-entries">Noch keine Einträge. Starte mit deinem ersten Tag der Klassenfahrt! ✨</p>';
-          entryCountLabel.textContent = "Keine Einträge vorhanden";
-          return;
-        }
 
-        const sorted = [...entries].sort((a, b) => {
-          const da = a.date || "";
-          const db = b.date || "";
-          if (da === db) {
-            return (b.createdAt || 0) - (a.createdAt || 0);
-          }
-          return db.localeCompare(da);
-        });
+    </div>
+</section>
 
-        sorted.forEach(entry => {
-          const entryEl = document.createElement("article");
-          entryEl.className = "entry";
+<footer>
+  
+</footer>
 
-          const headerEl = document.createElement("div");
-          headerEl.className = "entry-header";
-
-          const titleEl = document.createElement("div");
-          titleEl.className = "entry-title";
-          titleEl.textContent = entry.title || "Ohne Titel";
-
-          const dateBadge = document.createElement("span");
-          dateBadge.className = "badge badge-date";
-          dateBadge.textContent = formatDateForDisplay(entry.date);
-
-          headerEl.appendChild(titleEl);
-          headerEl.appendChild(dateBadge);
-
-          const metaEl = document.createElement("div");
-          metaEl.className = "entry-meta";
-
-          if (entry.place) {
-            const placeBadge = document.createElement("span");
-            placeBadge.className = "badge badge-location";
-            placeBadge.textContent = "📍 " + entry.place;
-            metaEl.appendChild(placeBadge);
-          }
-
-          if (entry.mood) {
-            const moodBadge = document.createElement("span");
-            moodBadge.className = "badge badge-mood";
-            moodBadge.textContent = "Stimmung: " + entry.mood;
-            metaEl.appendChild(moodBadge);
-          }
-
-          const textEl = document.createElement("div");
-          textEl.className = "entry-text";
-          textEl.textContent = entry.text || "";
-
-          entryEl.appendChild(headerEl);
-          entryEl.appendChild(metaEl);
-          entryEl.appendChild(textEl);
-
-          // Bild einfügen
-          if (entry.imageDataUrl) {
-            const img = document.createElement("img");
-            img.className = "entry-image";
-            img.src = entry.imageDataUrl;
-            img.alt = "Foto zum Tagebucheintrag";
-            entryEl.insertBefore(img, textEl); // Bild vor dem Text
-          }
-
-          // Karte einfügen, falls GPS vorhanden
-          if (entry.gps && typeof entry.gps.lat === "number" && typeof entry.gps.lng === "number") {
-            const mapContainer = document.createElement("div");
-            mapContainer.className = "map-container";
-
-            const iframe = document.createElement("iframe");
-            const lat = entry.gps.lat;
-            const lng = entry.gps.lng;
-            const mapUrl = `https://www.google.com/maps?q=${lat},${lng}&z=14&output=embed`;
-            iframe.src = mapUrl;
-            iframe.loading = "lazy";
-
-            mapContainer.appendChild(iframe);
-            entryEl.appendChild(mapContainer);
-
-            const link = document.createElement("a");
-            link.href = `https://www.google.com/maps?q=${lat},${lng}`;
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
-            link.className = "map-link";
-            link.textContent = "🌍 In Google Maps öffnen";
-            entryEl.appendChild(link);
-          }
-
-          const actionsEl = document.createElement("div");
-          actionsEl.className = "actions";
-          actionsEl.style.marginTop = "0.5rem";
-
-          const timeInfo = document.createElement("span");
-          timeInfo.className = "helper-text";
-          if (entry.createdAt) {
-            const created = new Date(entry.createdAt);
-            const timeString = created.toLocaleTimeString("de-DE", {
-              hour: "2-digit",
-              minute: "2-digit"
-            });
-            timeInfo.textContent = "Erstellt um " + timeString;
-          } else {
-            timeInfo.textContent = "";
-          }
-
-          const deleteBtn = document.createElement("button");
-          deleteBtn.type = "button";
-          deleteBtn.className = "btn btn-danger btn-small";
-          deleteBtn.textContent = "Löschen";
-          deleteBtn.addEventListener("click", async () => {
-            if (confirm("Diesen Eintrag wirklich löschen?")) {
-              entries = entries.filter(e => e.id !== entry.id);
-              await saveEntries();
-              renderEntries();
-            }
-          });
-
-          actionsEl.appendChild(timeInfo);
-          actionsEl.appendChild(deleteBtn);
-
-          entryEl.appendChild(actionsEl);
-
-          entriesContainer.appendChild(entryEl);
-        });
-
-        entryCountLabel.textContent =
-          entries.length === 1
-            ? "1 Eintrag gespeichert"
-            : entries.length + " Einträge gespeichert";
-      }
-
-      function resetForm() {
-        dateInput.value = todayAsInputValue();
-        placeInput.value = "";
-        titleInput.value = "";
-        moodInput.value = "";
-        textInput.value = "";
-        photoInput.value = "";
-        photoPreview.src = "";
-        photoPreview.style.display = "none";
-        gpsInfo.textContent = "";
-        currentImageDataUrl = null;
-        currentImageGps = null;
-      }
-
-      // Hilfsfunktionen für EXIF-GPS
-      function gpsToDecimal(gpsData, ref) {
-        if (!gpsData || gpsData.length !== 3) return null;
-        const d = gpsData[0];
-        const m = gpsData[1];
-        const s = gpsData[2];
-        const deg = d.numerator / d.denominator;
-        const min = m.numerator / m.denominator;
-        const sec = s.numerator / s.denominator;
-        let dec = deg + min / 60 + sec / 3600;
-        if (ref === "S" || ref === "W") {
-          dec = -dec;
-        }
-        return dec;
-      }
-
-      // Foto-Auswahl: Bild + GPS einlesen
-      photoInput.addEventListener("change", () => {
-        const file = photoInput.files && photoInput.files[0];
-        currentImageDataUrl = null;
-        currentImageGps = null;
-        gpsInfo.textContent = "";
-        photoPreview.src = "";
-        photoPreview.style.display = "none";
-
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          const dataUrl = e.target.result;
-          currentImageDataUrl = dataUrl;
-          photoPreview.src = dataUrl;
-          photoPreview.style.display = "block";
-
-          // EXIF auslesen
-          const img = new Image();
-          img.onload = function () {
-            EXIF.getData(img, function () {
-              const lat = EXIF.getTag(this, "GPSLatitude");
-              const latRef = EXIF.getTag(this, "GPSLatitudeRef");
-              const lng = EXIF.getTag(this, "GPSLongitude");
-              const lngRef = EXIF.getTag(this, "GPSLongitudeRef");
-
-              if (lat && latRef && lng && lngRef) {
-                const latDec = gpsToDecimal(lat, latRef);
-                const lngDec = gpsToDecimal(lng, lngRef);
-                if (latDec != null && lngDec != null) {
-                  currentImageGps = { lat: latDec, lng: lngDec };
-                  gpsInfo.textContent =
-                    "📍 GPS erkannt: " +
-                    latDec.toFixed(5) + ", " + lngDec.toFixed(5) +
-                    " (für Karte gespeichert)";
-                } else {
-                  gpsInfo.textContent = "Keine verwendbaren GPS-Daten im Bild gefunden.";
-                }
-              } else {
-                gpsInfo.textContent = "Keine GPS-Daten im Bild vorhanden.";
-              }
-            });
-          };
-          img.src = dataUrl;
-        };
-
-        reader.readAsDataURL(file);
-      });
-
-      entryForm.addEventListener("submit", async (event) => {
-        event.preventDefault();
-
-        const date = dateInput.value;
-        const place = placeInput.value.trim();
-        const title = titleInput.value.trim();
-        const mood = moodInput.value.trim();
-        const text = textInput.value.trim();
-
-        if (!title || !text) {
-          alert("Bitte mindestens Überschrift und Text ausfüllen.");
-          return;
-        }
-
-        const newEntry = {
-          id: Date.now(),
-          date,
-          place,
-          title,
-          mood,
-          text,
-          createdAt: Date.now(),
-          imageDataUrl: currentImageDataUrl,
-          gps: currentImageGps
-        };
-
-        entries.push(newEntry);
-        await saveEntries();
-        renderEntries();
-        resetForm();
-      });
-
-      clearFormBtn.addEventListener("click", () => {
-        resetForm();
-      });
-
-      deleteAllBtn.addEventListener("click", async () => {
-        if (!entries.length) return;
-        const really = confirm("Wirklich alle Einträge löschen? Dies kann nicht rückgängig gemacht werden.");
-        if (!really) return;
-        entries = [];
-        await saveEntries();
-        renderEntries();
-      });
-
-      // Initial
-      dateInput.value = todayAsInputValue();
-      await loadEntries();
-      renderEntries();
-    })();
-  </script>
 </body>
 </html>
